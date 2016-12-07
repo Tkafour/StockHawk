@@ -194,17 +194,18 @@ public class StockTaskService extends GcmTaskService {
                         getHistResponse = fetchData(histUrlString);
                         try {
                             ContentResolver resolver = mContext.getContentResolver();
-
-                            resolver.delete(QuoteProvider.HistoryQuotes.CONTENT_URI,
-                                    HistoryQuoteColumns.SYMBOL + " = \"" + symbol + "\"", null);
+                            try {
+                                resolver.delete(QuoteProvider.HistoryQuotes.CONTENT_URI,
+                                        HistoryQuoteColumns.SYMBOL + " = \"" + symbol + "\"", null);
+                            } catch (SQLiteException e) {
+                                e.printStackTrace();
+                            }
                             mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
                                     Utils.quoteHistJsonToContentVals(getHistResponse));
                         } catch (RemoteException | OperationApplicationException e) {
                             e.printStackTrace();
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (SQLiteException e) {
                         e.printStackTrace();
                     }
                 }
