@@ -130,7 +130,7 @@ public class StockDetailFragment extends Fragment implements LoaderManager.Loade
         switch (id) {
             case CURSOR_LOADER_ID:
                 return new CursorLoader(getActivity(), QuoteProvider.Quotes.CONTENT_URI,
-                        new String[]{QuoteColumns.BIDPRICE, QuoteColumns.PERCENT_CHANGE, QuoteColumns.CHANGE, QuoteColumns.CREATED},
+                        new String[]{QuoteColumns.BIDPRICE, QuoteColumns.PERCENT_CHANGE, QuoteColumns.CHANGE, QuoteColumns.CREATED, QuoteColumns.ISUP},
                         QuoteColumns.SYMBOL + " = ?",
                         new String[]{mStockName},
                         null);

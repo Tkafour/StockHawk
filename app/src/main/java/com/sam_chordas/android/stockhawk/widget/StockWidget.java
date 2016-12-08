@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.sam_chordas.android.stockhawk.R;
@@ -27,14 +28,12 @@ public class StockWidget extends AppWidgetProvider {
             serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
             views.setRemoteAdapter(R.id.stock_list, serviceIntent);
 
-
             Intent intent = new Intent(context, MyStocksActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-            views.setOnClickPendingIntent(R.id.stock_list, pendingIntent);
+            views.setPendingIntentTemplate(R.id.stock_list, pendingIntent);
 
             appWidgetManager.updateAppWidget(appWidgetId, views);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.stock_list);
-
 
         }
     }

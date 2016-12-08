@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -24,6 +25,8 @@ public class StockRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     public StockRemoteViewsFactory(Context context, Intent intent) {
         mContext = context;
         mWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+
+        Log.d("TAG", "blablabla");
     }
 
     @Override
@@ -37,12 +40,15 @@ public class StockRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
             mCursor.close();
         }
 
+        Log.d("TAG", "blablabla");
         mCursor = mContext.getContentResolver().query(
                 QuoteProvider.Quotes.CONTENT_URI,
                 new String[]{QuoteColumns._ID, QuoteColumns.SYMBOL, QuoteColumns.BIDPRICE, QuoteColumns.PERCENT_CHANGE, QuoteColumns.CHANGE, QuoteColumns.ISUP},
                 QuoteColumns.ISCURRENT + " = ?",
                 new String[]{"1"},
                 null);
+
+        Log.d("TAG", "blablabla");
     }
 
     @Override
@@ -60,6 +66,7 @@ public class StockRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public RemoteViews getViewAt(int position) {
+
         RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.list_item_quote);
         if (mCursor.moveToPosition(position)) {
             remoteViews.setTextViewText(R.id.stock_symbol, mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL)));
@@ -74,7 +81,6 @@ public class StockRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
             Intent intent = new Intent(mContext, MyStocksActivity.class);
             remoteViews.setOnClickFillInIntent(R.id.stock_row, intent);
-
 
         }
         return remoteViews;

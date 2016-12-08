@@ -164,6 +164,7 @@ public class StockListFragment extends Fragment implements LoaderManager.LoaderC
                                     Cursor c = getActivity().getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
                                             new String[]{QuoteColumns.SYMBOL}, QuoteColumns.SYMBOL + "= ?",
                                             new String[]{input.toString()}, null);
+                                    if (getResources().getString(R.string.valid_stocks).contains(input)) {
                                     if (c.getCount() != 0) {
                                         Toast toast =
                                                 Toast.makeText(getActivity(), R.string.stock_saved_toast,
@@ -177,6 +178,13 @@ public class StockListFragment extends Fragment implements LoaderManager.LoaderC
                                         mServiceIntent.putExtra("symbol", input.toString());
                                         getActivity().startService(mServiceIntent);
                                     }
+                                    } else {
+                                        Toast toast = Toast.makeText(getActivity(), R.string.stock_not_found, Toast.LENGTH_LONG);
+                                        toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
+                                        toast.show();
+                                        return;
+                                    }
+
                                 }
                             })
                             .show();

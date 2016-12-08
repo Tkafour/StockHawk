@@ -16,4 +16,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="date">Date:</string>
     <string name="stock_price">Stock Price: </string>
+    <string name="valid_stocks">YHOO, AAPL, GOOG, MSFT</string>
+    <string name="stock_not_found">Stock not found</string>
 </resources>
