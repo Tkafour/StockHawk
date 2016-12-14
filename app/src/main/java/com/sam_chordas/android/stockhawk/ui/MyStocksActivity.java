@@ -45,7 +45,7 @@ public class MyStocksActivity extends AppCompatActivity implements StockListFrag
         } else if (findViewById(R.id.stock_detail_fragment) != null) {
             getSupportFragmentManager().popBackStack();
             findViewById(R.id.stock_detail_fragment).setVisibility(View.GONE);
-        } else{
+        } else {
             getSupportFragmentManager().popBackStack();
         }
     }
