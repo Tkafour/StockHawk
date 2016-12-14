@@ -10,42 +10,24 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:id="@+id/stock_name"
-        android:textSize="20sp" />
+        android:textSize="30sp"
+        android:textStyle="bold"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/stock_change"
-        android:textSize="20sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/stock_percent_change"
-        android:textSize="20sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/stock_bid_price"
-        android:textSize="20sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/stock_selected"
-        android:textSize="20sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/stock_created"
-        android:textSize="20sp" />
-
+        android:gravity="center"
+        android:textSize="20sp"
+        android:padding="16dp"
+        android:textColor="#FFF"
+        android:visibility="gone"/>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/stock_chart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
 </LinearLayout>

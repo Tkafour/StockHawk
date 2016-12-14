@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Stock Hawk</string>
+    <string name="app_name" translatable="false">Stock Hawk</string>
 
     <string name="action_example">Example action</string>
 
@@ -13,9 +13,9 @@
     <string name="stock_saved_toast">This stock is already saved!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="date">Date:</string>
     <string name="stock_price">Stock Price: </string>
     <string name="valid_stocks">YHOO, AAPL, GOOG, MSFT</string>
     <string name="stock_not_found">Stock not found</string>
+    <string name="add_stock">Add stock</string>
 </resources>

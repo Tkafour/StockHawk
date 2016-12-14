@@ -40,10 +40,7 @@ public class StockDetailFragment extends Fragment implements LoaderManager.Loade
     private String mStockName;
 
     private TextView mStockText;
-    private TextView mStockPercentChange;
-    private TextView mStockChange;
-    private TextView mStockPrice;
-    private TextView mStockCreated;
+
     private TextView mStockSelected;
 
     private LineChart mStockDynamic;
@@ -83,6 +80,7 @@ public class StockDetailFragment extends Fragment implements LoaderManager.Loade
                 Float xValue = e.getX();
 
                 String stockValue = getResources().getString(R.string.stock_price) + yValue.toString() + " " + getResources().getString(R.string.date) + mDateList.get(xValue.intValue());
+                mStockSelected.setVisibility(View.VISIBLE);
 
                 mStockSelected.setText(stockValue);
             }
@@ -109,17 +107,12 @@ public class StockDetailFragment extends Fragment implements LoaderManager.Loade
 
         mStockDynamic.getAxisRight().setEnabled(true);
 
-        mStockPercentChange = (TextView) v.findViewById(R.id.stock_percent_change);
-        mStockChange = (TextView) v.findViewById(R.id.stock_change);
-        mStockCreated = (TextView) v.findViewById(R.id.stock_created);
-        mStockPrice = (TextView) v.findViewById(R.id.stock_bid_price);
 
         mStockText = (TextView) v.findViewById(R.id.stock_name);
         mStockText.setText(mStockName);
 
         mStockSelected = (TextView) v.findViewById(R.id.stock_selected);
 
-        getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
         getLoaderManager().initLoader(HISTORY_CURSOR_LOADER_ID, null, this);
         return v;
     }
@@ -128,12 +121,7 @@ public class StockDetailFragment extends Fragment implements LoaderManager.Loade
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // This narrows the return to only the stocks that are most current.
         switch (id) {
-            case CURSOR_LOADER_ID:
-                return new CursorLoader(getActivity(), QuoteProvider.Quotes.CONTENT_URI,
-                        new String[]{QuoteColumns.BIDPRICE, QuoteColumns.PERCENT_CHANGE, QuoteColumns.CHANGE, QuoteColumns.CREATED, QuoteColumns.ISUP},
-                        QuoteColumns.SYMBOL + " = ?",
-                        new String[]{mStockName},
-                        null);
+
             case HISTORY_CURSOR_LOADER_ID:
                 return new CursorLoader(getActivity(), QuoteProvider.HistoryQuotes.CONTENT_URI,
                         new String[]{HistoryQuoteColumns._ID, HistoryQuoteColumns.SYMBOL, HistoryQuoteColumns.DATE, HistoryQuoteColumns.OPENPRICE},
@@ -148,14 +136,6 @@ public class StockDetailFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         switch (loader.getId()) {
-            case CURSOR_LOADER_ID:
-                if (data != null && data.moveToFirst()) {
-                    mStockPrice.setText(data.getString((data.getColumnIndex(QuoteColumns.BIDPRICE))));
-                    mStockPercentChange.setText(data.getString((data.getColumnIndex(QuoteColumns.PERCENT_CHANGE))));
-                    mStockChange.setText(data.getString((data.getColumnIndex(QuoteColumns.CHANGE))));
-                    mStockCreated.setText(data.getString((data.getColumnIndex(QuoteColumns.CREATED))));
-                }
-                data.close();
 
             case HISTORY_CURSOR_LOADER_ID:
                 try {

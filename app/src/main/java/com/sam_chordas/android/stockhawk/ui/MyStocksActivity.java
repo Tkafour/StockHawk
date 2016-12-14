@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.widget.StockRemoteViewsFactory;
@@ -37,6 +38,18 @@ public class MyStocksActivity extends AppCompatActivity implements StockListFrag
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() <= 1) {
+            supportFinishAfterTransition();
+        } else if (findViewById(R.id.stock_detail_fragment) != null) {
+            getSupportFragmentManager().popBackStack();
+            findViewById(R.id.stock_detail_fragment).setVisibility(View.GONE);
+        } else{
+            getSupportFragmentManager().popBackStack();
+        }
+    }
+
     public void onStockSelected(String stockName) {
 
         Fragment stockDetail = new StockDetailFragment();
@@ -51,7 +64,7 @@ public class MyStocksActivity extends AppCompatActivity implements StockListFrag
                     .addToBackStack(null)
                     .commit();
         } else {
-
+            findViewById(R.id.stock_detail_fragment).setVisibility(View.VISIBLE);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.stock_detail_fragment, stockDetail)
                     .addToBackStack(null)
